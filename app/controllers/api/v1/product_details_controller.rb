@@ -2,18 +2,18 @@ class Api::V1::ProductDetailsController < ApplicationController
     before_action :set_product_detail, only: [:show, :update, :destroy]
     def index
         @product_details = ProductDetail.all
-        render json: @product_details, status: :ok
+        render json: serialize(@product_details), status: :ok
     end
 
     def show
-        render json: @product_detail, status: :ok
+        render json: serialize(@product_detail), status: :ok
     end
 
   def create
     @product_detail = ProductDetail.new(product_detail_params)
 
     if @product_detail.save
-        render json: @product_detail, status: 201
+        render json: serialize(@product_detail), status: 201
     else
         render_errors(@product_detail)
     end
@@ -21,7 +21,7 @@ class Api::V1::ProductDetailsController < ApplicationController
 
   def update
     if @product_detail.update(product_detail_params)
-        render json: @product_detail, status: :ok
+        render json: serialize(@product_detail), status: :ok
     else
         render_errors(@product_detail)
     end
