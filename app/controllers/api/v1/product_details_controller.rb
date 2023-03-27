@@ -6,7 +6,7 @@ class Api::V1::ProductDetailsController < ApplicationController
     end
 
     def show
-        render json: @product_detail, each_serializer: ProductDetailSerializer, status: :ok
+        render json: @product_detail, serialize: ProductDetailSerializer, status: :ok
     end
 
   def create
