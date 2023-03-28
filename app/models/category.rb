@@ -1,3 +1,5 @@
 class Category < ApplicationRecord
-    has_one :product
+    validates :name, presence: true, length: { maximum: 25 }
+    validates :description, presence: true, length: { maximum: 300 }
+    has_many :product, dependent: :destroy
 end
