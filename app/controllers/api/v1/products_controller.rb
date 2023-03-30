@@ -2,11 +2,11 @@ class Api::V1::ProductsController < ApplicationController
     before_action :set_product, only: [:show, :update, :destroy]
     def index
         @products = Product.all
-        render json: @products, status: :ok
+        render json: @products, each_serializer: ProductSerializer, status: :ok
     end
 
     def show
-        render json: @product, status: :ok
+        render json: @product, serializer: ProductSerializer, status: :ok
     end
 
   def create
@@ -15,7 +15,7 @@ class Api::V1::ProductsController < ApplicationController
     if @product.save
         render json: @product, status: 201
     else
-        render_errors(@product)
+      render json: { errors: @product.errors }, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class Api::V1::ProductsController < ApplicationController
     if @product.update(product_params)
         render json: @product, status: :ok
     else
-        render_errors(@product)
+      render json: { errors: @product.errors }, status: :unprocessable_entity
     end
   end
 
@@ -31,13 +31,13 @@ class Api::V1::ProductsController < ApplicationController
     if  @product.destroy
         render json: nil, status: :no_content
       else
-        render_errors(@product)
+        render json: { errors: @product.errors }, status: :unprocessable_entity
       end
   end
 
   private
     def product_params
-      params.require(:product).permit(:name, :price)
+      params.require(:product).permit(:name, :price, :category_id)
     end
 
     def set_product

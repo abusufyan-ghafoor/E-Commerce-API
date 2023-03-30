@@ -6,7 +6,7 @@ class Api::V1::ProductDetailsController < ApplicationController
     end
 
     def show
-        render json: @product_detail, serialize: ProductDetailSerializer, status: :ok
+        render json: @product_detail, serializer: ProductDetailSerializer, status: :ok
     end
 
   def create
@@ -15,7 +15,7 @@ class Api::V1::ProductDetailsController < ApplicationController
     if @product_detail.save
         render json: @product_detail, status: 201
     else
-        render_errors(@product_detail)
+      render json: { errors: @product_detail.errors }, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class Api::V1::ProductDetailsController < ApplicationController
     if @product_detail.update(product_detail_params)
         render json: @product_detail, status: :ok
     else
-        render_errors(@product_detail)
+      render json: { errors: @product_detail.errors }, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +31,7 @@ class Api::V1::ProductDetailsController < ApplicationController
     if  @product_detail.destroy
         render json: nil, status: :no_content
       else
-        render_errors(@product_detail)
+        render json: { errors: @product_detail.errors }, status: :unprocessable_entity
       end
   end
 
