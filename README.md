@@ -1,24 +1,38 @@
-# README
+E-Commerce API Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Ruby on Rails API backend for an e-commerce site. It provides endpoints for managing products, orders, and customers.
 
-Things you may want to cover:
+Getting Started
+Prerequisites
+To run this API, you'll need the following:
+Ruby (version 2.7.1)
+Rails (version 6.1.4)
+PostgreSQL (version 14.6)
 
-* Ruby version
+Installing
 
-* System dependencies
+Clone the repository:
+git clone https://github.com/abusufyan-ghafoor/E-Commerce-API.git
 
-* Configuration
+Install dependencies:
+bundle install
 
-* Database creation
+Create the database:
+rails db:create
 
-* Database initialization
+Run migrations:
+rails db:migrate
 
-* How to run the test suite
+Start the server:
+rails s
 
-* Services (job queues, cache servers, search engines, etc.)
+Endpoints
+The API provides the following endpoints:
 
-* Deployment instructions
+Products
+GET /api/v1/products: list all products
+POST /api/v1/products: create a new product
+GET /api/v1/products/:id: show a single product
+PATCH /api/v1/products/:id: update a product
+DELETE /api/v1/products/:id: delete a product
 
-* ...
