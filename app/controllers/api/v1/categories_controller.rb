@@ -2,11 +2,11 @@ class Api::V1::CategoriesController < ApplicationController
     before_action :set_category, only: [:show, :update, :destroy]
     def index
         @categories = Category.all
-        render json: @categories, status: :ok
+        render json: @categories, each_serializer: CategorySerializer, status: :ok
     end
 
     def show
-        render json: @category, status: :ok
+        render json: @category, serializer: CategorySerializer, status: :ok
     end
 
   def create
