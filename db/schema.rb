@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_04_172045) do
+ActiveRecord::Schema.define(version: 2023_04_04_193756) do
 
   create_table "categories", force: :cascade do |t|
     t.text "name", null: false
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content", null: false
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_comments_on_product_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "product_details", force: :cascade do |t|
@@ -50,6 +60,8 @@ ActiveRecord::Schema.define(version: 2023_04_04_172045) do
     t.index ["name"], name: "index_users_on_name"
   end
 
+  add_foreign_key "comments", "products"
+  add_foreign_key "comments", "users"
   add_foreign_key "product_details", "products"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "users"
