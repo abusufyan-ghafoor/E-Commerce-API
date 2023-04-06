@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_04_193756) do
+ActiveRecord::Schema.define(version: 2023_04_05_144042) do
 
   create_table "categories", force: :cascade do |t|
     t.text "name", null: false
@@ -27,6 +27,27 @@ ActiveRecord::Schema.define(version: 2023_04_04_193756) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_comments_on_product_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "order_details", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "product_id", null: false
+    t.integer "quantity", null: false
+    t.decimal "discount", precision: 10, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id", "product_id"], name: "index_order_details_on_order_id_and_product_id", unique: true
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+    t.index ["product_id"], name: "index_order_details_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.text "address", null: false
+    t.decimal "total_bill", precision: 10, scale: 2, null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "product_details", force: :cascade do |t|
@@ -62,6 +83,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_193756) do
 
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "order_details", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "product_details", "products"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "users"
