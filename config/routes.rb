@@ -4,6 +4,8 @@ Rails.application.routes.draw do
       resources :categories
       resources :product_details
       resources :users
+      resources :orders
+      resources :order_details
       resources :products do
         resources :comments
       end
