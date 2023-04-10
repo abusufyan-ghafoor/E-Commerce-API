@@ -3,4 +3,5 @@ class OrderSerializer < ActiveModel::Serializer
 
   has_many :products, through: :order_details
   has_many :order_details
+  has_many :comments, as: :commentable
 end

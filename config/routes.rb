@@ -5,10 +5,11 @@ Rails.application.routes.draw do
       resources :product_details
       resources :users
       resources :orders
-      resources :order_details
       resources :products do
-        resources :comments
+        post '/comments', to: 'comments#product_comment', defaults: { commentable_type: 'OrderDetail' }
       end
+    
+      # resources :order_details
     end
   end
 end

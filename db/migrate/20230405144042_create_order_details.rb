@@ -8,7 +8,5 @@ class CreateOrderDetails < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-
-    add_index :order_details, [:order_id, :product_id], unique: true
   end
 end
